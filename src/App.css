@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+
+
+.nav1{
+  background-color: blue;
+  background-image: linear-gradient(Turquoise, lightCyan);
+}
+
+#test{
+  background-color: rgb(232, 254, 254);
+  background-image: linear-gradient(lightCyan, white);
+  font-family: 'Lora', serif;
+  color: rgb(155,43,120);
+  font-size: x-large;
+}
+
+
+
+.context{
+  height: 150px ;
+ /* background-color: rgb(155, 152, 152);
+ opacity: 50%; */
+}
+
+/* .bgimg{
+  opacity: 50%;
+} */
+
+.text-context{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  padding: 5px 15px;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+}
+
+.test2{
+  /* background-color: rgb(232, 254, 254); */
+  /* background-image: linear-gradient(lightCyan, white); */
+  font-family: 'Lora', serif;
+  color:rgb(155,43,120);
+  font-style:oblique ;
+  font-size: medium;
+}
+
+.backc{
+  /* background-color: rgb(232, 254, 254);
+  background-image: linear-gradient(white, lightCyan);
+  background-color: black; */
+}
+
+
+@media (max-width: 600px){
+  .parallax-container{
+    transform: none;
+    transition: none;
+  }
+}
+
+.context1{
+  height: 100vh;
+  /* margin-top: 50px; */
+  padding: 40px;
+}
+
+#cs{
+  font-family: 'Lora', serif;
+  border-color:rgb(155,43,120);
+  margin-bottom: 45px ;
+}
+
+input[type='radio'] {
+  
+  width: 17px;
+  height: 17px;
+  /* border-radius: 50%; */
+  outline: none;
+  border: 1px solid gray;
+}
+
+.bc{
+  border-color:rgb(155,43,120);
+}
+
+.disabled-title{
+  opacity: 0.5;
+}
+
+/* .enable-title{
+  opacity: 1;
+} */
+
+
