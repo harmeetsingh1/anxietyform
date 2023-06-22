@@ -91,4 +91,56 @@ input[type='radio'] {
   opacity: 1;
 } */
 
+.modal {
+  font-size: 12px;
+}
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+}
 
+#popup-2{
+  background-color: rgb(252, 220, 192);
+  width: 100%;
+  min-width:max-content;
+  max-width: 50%;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 ;
+}
+
+#name{
+  color: rgb(16,91,171);
+  font-family: 'Lora', serif;
+}
+
+#name1{
+  color: rgb(16,91,171);
+  font-family: 'Lora', serif;
+}
