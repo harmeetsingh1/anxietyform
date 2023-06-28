@@ -6,7 +6,6 @@ import { Card, CardGroup, Form } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
-
 const validator = require("validator");
 
 const cardData = [
@@ -309,31 +308,27 @@ function Forrm() {
     event.preventDefault();
 
     const isValid = validator.isEmail(email);
-  setIsValidEmail(isValid);
+    setIsValidEmail(isValid);
 
-  if (isValid) {
-    // Proceed with form submission or further processing
-    console.log('Email address is valid:', email);
-  } else {
-    // Display an error message or handle the invalid email address case
-    console.log('Invalid email address:', email);
-  }
+    if (isValid) {
+      // Proceed with form submission or further processing
+      console.log("Email address is valid:", email);
+    } else {
+      // Display an error message or handle the invalid email address case
+      console.log("Invalid email address:", email);
+    }
 
-  const isPhoneNumberValid = validator.isMobilePhone(phoneNumber);
-  setIsValidPhoneNumber(isPhoneNumberValid);
+    const isPhoneNumberValid = validator.isMobilePhone(phoneNumber);
+    setIsValidPhoneNumber(isPhoneNumberValid);
 
-  if (isPhoneNumberValid) {
-    // Proceed with form submission or further processing
-    console.log('Phone number is valid:', phoneNumber);
-  } else {
-    // Display an error message or handle the invalid phone number case
-    console.log('Invalid phone number:', phoneNumber);
-  }
-};
-   
-
-   
-  
+    if (isPhoneNumberValid) {
+      // Proceed with form submission or further processing
+      console.log("Phone number is valid:", phoneNumber);
+    } else {
+      // Display an error message or handle the invalid phone number case
+      console.log("Invalid phone number:", phoneNumber);
+    }
+  };
 
   return (
     <>
@@ -355,7 +350,6 @@ function Forrm() {
                     >
                       <Card.Title>{questionObj.title}</Card.Title>
 
-                      
                       {questionObj.options.map((option, optionIndex) => (
                         <Form.Check
                           key={option.id}
@@ -380,7 +374,6 @@ function Forrm() {
                       ))}
                       {/* </Form> */}
                     </Card.Body>
-                   
                   </Card>
                 </Col>
               ))}{" "}
@@ -388,8 +381,7 @@ function Forrm() {
           </div>
 
           <div className="p-4 flex justify-center">
-            <Popup 
-              
+            <Popup
               trigger={
                 <Button
                   className="button"
@@ -408,7 +400,6 @@ function Forrm() {
                   Submit
                 </Button>
               }
-              
               modal
             >
               <Container className="">
@@ -420,47 +411,52 @@ function Forrm() {
                   />
                 </div>
 
-                <Form onSubmit={handleSubmit} >
+                <Form onSubmit={handleSubmit}>
                   <div className=" m-1">
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label className="fs-" id="name">Email Address</Form.Label>
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      isInvalid={!isValidEmail}
-                      size="sm"
-                      className="border"
-                    />
-                    {/* <Form.Text className="text-muted">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label className="fs-" id="name">
+                        Email Address
+                      </Form.Label>
+
+                      <Form.Control
+                        type="email"
+                        placeholder="Enter email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        isInvalid={!isValidEmail}
+                        size="sm"
+                        className="border"
+                      />
+                      {/* <Form.Text className="text-muted">
           We'll never share your email with anyone else.
         </Form.Text> */}
 
-                    {!isValidEmail && (
-                      <Form.Control.Feedback type="invalid">
-                        Invalid email address.
-                      </Form.Control.Feedback>
-                    )}
-                  </Form.Group>
+                      {!isValidEmail && (
+                        <Form.Control.Feedback type="invalid">
+                          Invalid email address.
+                        </Form.Control.Feedback>
+                      )}
+                    </Form.Group>
                   </div>
                   <div className="m-1">
-                  <Form.Group className="mb-3" controlId="phone-number-input">
-                    <Form.Label className="fs-6" id="name1">Mobile Number</Form.Label>
-                    <Form.Control
-                      type="number"
-                      placeholder="Enter mobile number"
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      isInvalid={!isValidPhoneNumber}
-                      size="sm"
-                    />
-                    {!isValidPhoneNumber && (
-                      <Form.Control.Feedback type="invalid">
-                        Invalid phone number.
-                      </Form.Control.Feedback>
-                    )}
-                  </Form.Group>
+                    <Form.Group className="mb-3" controlId="phone-number-input">
+                      <Form.Label className="fs-6" id="name1">
+                        Mobile Number
+                      </Form.Label>
+                      <Form.Control
+                        type="number"
+                        placeholder="Enter mobile number"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        isInvalid={!isValidPhoneNumber}
+                        size="sm"
+                      />
+                      {!isValidPhoneNumber && (
+                        <Form.Control.Feedback type="invalid">
+                          Invalid phone number.
+                        </Form.Control.Feedback>
+                      )}
+                    </Form.Group>
                   </div>
                   <div className="flex justify-center p-1 m-3">
                     <Button variant="primary" type="submit">

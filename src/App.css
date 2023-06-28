@@ -68,6 +68,16 @@
   font-family: 'Lora', serif;
   border-color:rgb(155,43,120);
   margin-bottom: 45px ;
+  background-image: url(https://img.freepik.com/free-vector/organic-flat-people-meditating-illustration_23-2148906556.jpg?w=740&t=st=1687426454~exp=1687427054~hmac=b62d2e582eacbb2b9624ef0a28797cf4499996cf2e969165a914dbdfdfb54000);
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-color: rgb(232, 254, 254, 0.5);
+ /* background: -webkit-linear-gradient(rgb(222, 171, 179)), rgb(rgb(237, 88, 113)),url("https://img.freepik.com/free-vector/organic-flat-people-meditating-illustration_23-2148906556.jpg?w=740&t=st=1687426454~exp=1687427054~hmac=b62d2e582eacbb2b9624ef0a28797cf4499996cf2e969165a914dbdfdfb54000"); */
+  
+  
+
+
 }
 
 input[type='radio'] {
@@ -126,13 +136,22 @@ input[type='radio'] {
 }
 
 #popup-2{
-  background-color: rgb(252, 220, 192);
+  background-color: rgb(248, 219, 194);
   width: 100%;
   min-width:max-content;
   max-width: 50%;
-  height: 400px;
+  height: 450px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 ;
+  /* background-image: url(https://img.freepik.com/free-vector/flat-design-illustration-customer-support_23-2148887720.jpg?w=740&t=st=1687431239~exp=1687431839~hmac=82f4dcd7a2355ebe5d09d9ce6aa74aff4f2764c9ac93b0c9b4af1626b6ac1819); */
+  background-color: whitesmoke;
+  color: whitesmoke;
+  backdrop-filter: blur(8px);
+  background-position: 600px;
+  background: -webkit-linear-gradient(rgba(185, 214, 231, 0.8), rgba(211, 157, 233, 0.8)), url("https://img.freepik.com/free-vector/flat-design-illustration-customer-support_23-2148887720.jpg?w=740&t=st=1687431239~exp=1687431839~hmac=82f4dcd7a2355ebe5d09d9ce6aa74aff4f2764c9ac93b0c9b4af1626b6ac1819");
+   /* background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)), url(""); The least supported option. */
+  
+  
 }
 
 #name{
@@ -143,4 +162,18 @@ input[type='radio'] {
 #name1{
   color: rgb(16,91,171);
   font-family: 'Lora', serif;
+}
+
+.button,
+.button:visited,
+.button:focus {
+  color: rgb(155,43,120) !important;
+  background-color: rgb(255, 255, 255) !important;
+  border-color: rgb(155,43,120) !important;
+}
+.button:hover,
+.button:active {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(155,43,120) !important;
+  border-color: rgb(255, 255, 255) !important;
 }
