@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Card, CardGroup, Form } from "react-bootstrap";
 import Popup from "reactjs-popup";
-import 'reactjs-popup/dist/index.css';
+import "reactjs-popup/dist/index.css";
 
 const cardData = [
   {
@@ -246,11 +246,11 @@ function Forrm() {
     // Set the questions data into the state
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/question'); // Replace with your API endpoint to fetch the questions data
+        const response = await fetch("/api/question"); // Replace with your API endpoint to fetch the questions data
         const data = await response.json();
         setQuestions(data);
       } catch (error) {
-        console.error('Error fetching questions:', error);
+        console.error("Error fetching questions:", error);
       }
     };
 
@@ -260,7 +260,7 @@ function Forrm() {
   const handleAnswer = (questionIndex) => {
     setAnsweredQuestions([...answeredQuestions, questionIndex]);
     setActiveQuestion(activeQuestion + 1);
-   setIsSubmitted(true);
+    setIsSubmitted(true);
   };
 
   const isQuestionAnswered = (questionIndex) => {
@@ -280,8 +280,8 @@ function Forrm() {
   };
   const isAllQuestionsAnswered = () => {
     // return answeredQuestions.length === cardData.length;
-   // return selectedOption.every((option) => option !== null) && isSubmitted;
-   return selectedOption.every((option) => option !== null);
+    // return selectedOption.every((option) => option !== null) && isSubmitted;
+    return selectedOption.every((option) => option !== null);
   };
   const handleAnswerChange = (questionId, answerIndex) => {
     const updatedAnswers = [...answers];
@@ -296,17 +296,15 @@ function Forrm() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       // Send the choices to the backend API endpoint for processing and storage
-      await axios.post('/api/submit-answers', choices); // Replace with your backend API endpoint for submitting answers
+      await axios.post("/api/submit-answers", choices); // Replace with your backend API endpoint for submitting answers
       // Handle the response or perform any necessary actions
     } catch (error) {
-      console.error('Error submitting answers:', error);
+      console.error("Error submitting answers:", error);
     }
   };
- 
-
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -347,7 +345,7 @@ function Forrm() {
   // };
   // //const isAllQuestionsAnswered = answeredQuestions.length === cardData.length;
 
- // const isAllQuestionsAnswered = answeredQuestions.length === cardData.length;
+  // const isAllQuestionsAnswered = answeredQuestions.length === cardData.length;
 
   return (
     <>
@@ -361,10 +359,7 @@ function Forrm() {
                   className={questionIndex < activeQuestion ? "muted-card" : ""}
                   id="cs"
                 >
-
-                  
                   <Card.Body style={{ opacity: isQuestionAnswered ? 1 : 0.5 }}>
-                 
                     <Card.Title>{questionObj.title}</Card.Title>
 
                     <Form style={{ fontSize: "15px" }}>
@@ -402,33 +397,34 @@ function Forrm() {
         </div>
 
         <div className="p-4 flex justify-center">
-        <Popup trigger=    {<Button
-            // disabled={answers.length !== cardData.length}
-            disabled={!isAllQuestionsAnswered() || (isSubmitted && activeQuestion === cardData.length) }
-            onClick={() => handleAnswer(activeQuestion)}
-            //onClick={() => handleAnswer(activeQuestion)}
-            variant="outline-primary"
-            style={{ fontSize: "18px", bordercolor: "rgb(155,43,120)" }}
-            // onSubmit={handleSubmit}
-          >
-            Submit
-          </Button>} modal nested>
-
-          {
-                    close => (
-                        <div className='modal'>
-                            <div className='content'>
-                                Welcome to GFG!!!
-                            </div>
-                            <div>
-                                <button onClick=
-                                    {() => close()}>
-                                        Close modal
-                                </button>
-                            </div>
-                        </div>
-                    )
+          <Popup
+            trigger={
+              <Button
+                // disabled={answers.length !== cardData.length}
+                disabled={
+                  !isAllQuestionsAnswered() ||
+                  (isSubmitted && activeQuestion === cardData.length)
                 }
+                onClick={() => handleAnswer(activeQuestion)}
+                //onClick={() => handleAnswer(activeQuestion)}
+                variant="outline-primary"
+                style={{ fontSize: "18px", bordercolor: "rgb(155,43,120)" }}
+                // onSubmit={handleSubmit}
+              >
+                Submit
+              </Button>
+            }
+            modal
+            nested
+          >
+            {(close) => (
+              <div className="modal">
+                <div className="content">Welcome to GFG!!!</div>
+                <div>
+                  <button onClick={() => close()}>Close modal</button>
+                </div>
+              </div>
+            )}
           </Popup>{" "}
         </div>
       </Container>

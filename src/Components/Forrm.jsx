@@ -1,7 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Card, CardGroup, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import TotalScoreContext from "./TotalScoreContext";
+
 //import { Question } from '../Server/Server';
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -18,7 +22,6 @@ const cardData = [
       { id: 3, label: "c) Good part of the time.", weightage: 3 },
       { id: 4, label: "d) Most or all the time.", weightage: 4 },
     ],
-    correctAnswer: 2,
   },
 
   {
@@ -61,10 +64,10 @@ const cardData = [
     id: 115,
     title: "5. I feel that everything is all right and nothing bad will happen",
     options: [
-      { id: 17, label: "a) None or Little of the time.", weightage: 1 },
-      { id: 18, label: "b) Some of the time", weightage: 2 },
-      { id: 19, label: "c) Good part of the time.", weightage: 3 },
-      { id: 20, label: "d) Most or all the time.", weightage: 4 },
+      { id: 17, label: "a) None or Little of the time.", weightage: 4 },
+      { id: 18, label: "b) Some of the time", weightage: 3 },
+      { id: 19, label: "c) Good part of the time.", weightage: 2 },
+      { id: 20, label: "d) Most or all the time.", weightage: 1 },
     ],
     correctAnswer: 1,
   },
@@ -109,10 +112,10 @@ const cardData = [
     id: 119,
     title: "9. I feel calm and can sit still easily.",
     options: [
-      { id: 33, label: "a) None or Little of the time.", weightage: 1 },
-      { id: 34, label: "b) Some of the time", weightage: 2 },
-      { id: 35, label: "c) Good part of the time.", weightage: 3 },
-      { id: 36, label: "d) Most or all the time.", weightage: 4 },
+      { id: 33, label: "a) None or Little of the time.", weightage: 4 },
+      { id: 34, label: "b) Some of the time", weightage: 3 },
+      { id: 35, label: "c) Good part of the time.", weightage: 2 },
+      { id: 36, label: "d) Most or all the time.", weightage: 1 },
     ],
     correctAnswer: 3,
   },
@@ -157,10 +160,10 @@ const cardData = [
     id: 123,
     title: "13. I can breathe in and out easily.",
     options: [
-      { id: 49, label: "a) None or Little of the time.", weightage: 1 },
-      { id: 50, label: "b) Some of the time", weightage: 2 },
-      { id: 51, label: "c) Good part of the time.", weightage: 3 },
-      { id: 52, label: "d) Most or all the time.", weightage: 4 },
+      { id: 49, label: "a) None or Little of the time.", weightage: 4 },
+      { id: 50, label: "b) Some of the time", weightage: 3 },
+      { id: 51, label: "c) Good part of the time.", weightage: 2 },
+      { id: 52, label: "d) Most or all the time.", weightage: 1 },
     ],
     correctAnswer: 1,
   },
@@ -205,10 +208,10 @@ const cardData = [
     id: 127,
     title: "17. My hands are usually dry and warm.",
     options: [
-      { id: 65, label: "a) None or Little of the time.", weightage: 1 },
-      { id: 66, label: "b) Some of the time", weightage: 2 },
-      { id: 67, label: "c) Good part of the time.", weightage: 3 },
-      { id: 68, label: "d) Most or all the time.", weightage: 4 },
+      { id: 65, label: "a) None or Little of the time.", weightage: 4 },
+      { id: 66, label: "b) Some of the time", weightage: 3 },
+      { id: 67, label: "c) Good part of the time.", weightage: 2 },
+      { id: 68, label: "d) Most or all the time.", weightage: 1 },
     ],
     correctAnswer: 0,
   },
@@ -229,10 +232,10 @@ const cardData = [
     id: 129,
     title: "19. I feel asleep easily and get a good night's rest",
     options: [
-      { id: 73, label: "a) None or Little of the time.", weightage: 1 },
-      { id: 74, label: "b) Some of the time", weightage: 2 },
-      { id: 75, label: "c) Good part of the time.", weightage: 3 },
-      { id: 76, label: "d) Most or all the time.", weightage: 4 },
+      { id: 73, label: "a) None or Little of the time.", weightage: 4 },
+      { id: 74, label: "b) Some of the time", weightage: 3 },
+      { id: 75, label: "c) Good part of the time.", weightage: 2 },
+      { id: 76, label: "d) Most or all the time.", weightage: 1 },
     ],
     correctAnswer: 1,
   },
@@ -258,7 +261,7 @@ function Forrm() {
     Array(cardData.length).fill(null)
   );
   const [lastAnsweredQuestion, setLastAnsweredQuestion] = useState(-1);
-  const [score, setScore] = useState(0);
+  //const [score, setScore] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [email, setEmail] = useState("");
@@ -267,14 +270,46 @@ function Forrm() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
 
+  const [totalScore, setTotalScore] = useState(1);
+  //const [selectedOption, setSelectedOption] = useState(Array(cardData.length).fill(null));
+  const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
+
+  const { totalScore1, setTotalScore1 } = useContext(TotalScoreContext);
+  const [updatedTotalScore1, setUpdatedTotalScore1] = useState(null);
+
+  //const shouldEnableSubmit = answeredQuestions.length === cardData.length && formSubmitted;
+
+  const navigate = useNavigate();
+
   const handleAnswer = (questionIndex) => {
     setAnsweredQuestions([...answeredQuestions, questionIndex]);
     setActiveQuestion(activeQuestion + 1);
+
+    //     //new
+    //     const selectedOption1 = selectedOption[questionIndex];
+    //      const score = cardData[questionIndex].options.find((option) => option.label === selectedOption1)?.weightage || 0;
+    //    // const score = 2
+    //     setTotalScore(totalScore + score);
+
+    // //new
+    if (activeQuestion === cardData.length - 1) {
+      setSubmitButtonClicked(true);
+      // navigate.push(`/result?score=${updatedTotalScore}`)
+    }
     setIsSubmitted(true);
   };
 
   const isQuestionAnswered = (questionIndex) => {
     return answeredQuestions.includes(questionIndex);
+  };
+
+  const handleButtonClick = () => {
+    // window.location.href = `/result?score=${updatedTotalScore1}`;
+    console.log("isSubmitted:", isSubmitted);
+    console.log("isValidEmail:", isValidEmail);
+    console.log("isValidPhoneNumber:", isValidPhoneNumber);
+    console.log("updatedTotalScore1:", updatedTotalScore1);
+    navigate(`/result?score=${encodeURIComponent(updatedTotalScore1)}`);
   };
 
   const handleOptionChange = (event, questionIndex) => {
@@ -287,7 +322,42 @@ function Forrm() {
       setAnsweredQuestions([...answeredQuestions, questionIndex]);
       setActiveQuestion(activeQuestion + 1);
     }
+
+    const updatedTotalScore = updatedSelectedOptions.reduce(
+      (score, option, index) => {
+        const selectedOption = cardData[index].options.find(
+          (o) => o.label === option
+        );
+        return score + (selectedOption ? selectedOption.weightage : 0);
+      },
+      0
+    );
+
+    setTotalScore(updatedTotalScore);
+    //console.log(updatedTotalScore)
+
+    //const updatedTotalScore1 = updatedTotalScore;
+
+    setUpdatedTotalScore1(updatedTotalScore);
+    //console.log(updatedTotalScore1)
+
+    console.log("Updated Total Score:", updatedTotalScore);
+
+    if (answeredQuestions.length === cardData.length) {
+      //   console.log(updatedTotalScore1)
+
+      handleButtonClick();
+      //setIsSubmitted(true);
+      //handleButtonClick();
+      //navigate(`/result?score=${updatedTotalScore1}`);
+      console.log("answeredQuestions:", answeredQuestions);
+      console.log("cardData.length:", cardData.length);
+      console.log("updatedTotalScore1:", updatedTotalScore1);
+    } else {
+      console.log("Please answer all questions");
+    }
   };
+
   const isAllQuestionsAnswered = () => {
     // return answeredQuestions.length === cardData.length;
     // return selectedOption.every((option) => option !== null) && isSubmitted;
@@ -306,7 +376,8 @@ function Forrm() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    setIsSubmitted(true);
+    handleButtonClick();
     const isValid = validator.isEmail(email);
     setIsValidEmail(isValid);
 
@@ -327,6 +398,17 @@ function Forrm() {
     } else {
       // Display an error message or handle the invalid phone number case
       console.log("Invalid phone number:", phoneNumber);
+    }
+
+    if (
+      isSubmitted &&
+      isValidEmail &&
+      isValidPhoneNumber &&
+      updatedTotalScore1 !== null
+    ) {
+      handleButtonClick();
+    } else {
+      console.log("Please submit the form first");
     }
   };
 
@@ -352,7 +434,7 @@ function Forrm() {
 
                       {questionObj.options.map((option, optionIndex) => (
                         <Form.Check
-                          key={option.id}
+                          key={optionIndex}
                           type="radio"
                           label={option.label}
                           value={option.label}
@@ -364,19 +446,15 @@ function Forrm() {
                           checked={
                             selectedOption[questionIndex] === option.label
                           }
-                          //checked={answers[cardData.id] === optionIndex}
                           onChange={(event) =>
                             handleOptionChange(event, questionIndex)
                           }
-                          // onChange={() => handleAnswerChange(cardData.id, optionIndex)}
-                          // disabled={index !== lastAnsweredQuestion + 1}
                         />
                       ))}
-                      {/* </Form> */}
                     </Card.Body>
                   </Card>
                 </Col>
-              ))}{" "}
+              ))}
             </Row>
           </div>
 
@@ -385,17 +463,16 @@ function Forrm() {
               trigger={
                 <Button
                   className="button"
-                  // disabled={answers.length !== cardData.length}
                   disabled={
                     !isAllQuestionsAnswered() ||
                     (isSubmitted && activeQuestion === cardData.length)
                   }
-                  onClick={() => handleAnswer(activeQuestion)}
-                  onSubmit={handleSubmit}
-                  //onClick={() => handleAnswer(activeQuestion)}
+                  onClick={() => {
+                    handleAnswer(activeQuestion);
+                    handleButtonClick();
+                  }}
                   variant="outline-primary"
                   style={{ fontSize: "18px", bordercolor: "rgb(155,43,120)" }}
-                  // onSubmit={handleSubmit}
                 >
                   Submit
                 </Button>
@@ -411,61 +488,63 @@ function Forrm() {
                   />
                 </div>
 
-                <Form onSubmit={handleSubmit}>
-                  <div className=" m-1">
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label className="fs-" id="name">
-                        Email Address
-                      </Form.Label>
+                <div className="m-1">
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label className="fs-" id="name">
+                      Email Address
+                    </Form.Label>
 
-                      <Form.Control
-                        type="email"
-                        placeholder="Enter email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        isInvalid={!isValidEmail}
-                        size="sm"
-                        className="border"
-                      />
-                      {/* <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text> */}
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      isInvalid={!isValidEmail}
+                      size="sm"
+                      className="border"
+                    />
 
-                      {!isValidEmail && (
-                        <Form.Control.Feedback type="invalid">
-                          Invalid email address.
-                        </Form.Control.Feedback>
-                      )}
-                    </Form.Group>
-                  </div>
-                  <div className="m-1">
-                    <Form.Group className="mb-3" controlId="phone-number-input">
-                      <Form.Label className="fs-6" id="name1">
-                        Mobile Number
-                      </Form.Label>
-                      <Form.Control
-                        type="number"
-                        placeholder="Enter mobile number"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        isInvalid={!isValidPhoneNumber}
-                        size="sm"
-                      />
-                      {!isValidPhoneNumber && (
-                        <Form.Control.Feedback type="invalid">
-                          Invalid phone number.
-                        </Form.Control.Feedback>
-                      )}
-                    </Form.Group>
-                  </div>
-                  <div className="flex justify-center p-1 m-3">
-                    <Button variant="primary" type="submit">
-                      Submit
-                    </Button>
-                  </div>
-                </Form>
+                    {!isValidEmail && (
+                      <Form.Control.Feedback type="invalid">
+                        Invalid email address.
+                      </Form.Control.Feedback>
+                    )}
+                  </Form.Group>
+                </div>
+                <div className="m-1">
+                  <Form.Group className="mb-3" controlId="phone-number-input">
+                    <Form.Label className="fs-6" id="name1">
+                      Mobile Number
+                    </Form.Label>
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter mobile number"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      isInvalid={!isValidPhoneNumber}
+                      size="sm"
+                    />
+                    {!isValidPhoneNumber && (
+                      <Form.Control.Feedback type="invalid">
+                        Invalid phone number.
+                      </Form.Control.Feedback>
+                    )}
+                  </Form.Group>
+                </div>
+                <div className="flex justify-center p-1 m-3">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    onClick={handleButtonClick}
+                  >
+                    {/* <Link to={updatedTotalScore1 !== undefined ? `/result?score=${encodeURIComponent(updatedTotalScore1)}` : "#"}>
+                    Submit
+                    </Link> */}
+                    Submit
+                  </Button>
+                </div>
               </Container>
-            </Popup>{" "}
+            </Popup>
           </div>
         </Form>
       </Container>
