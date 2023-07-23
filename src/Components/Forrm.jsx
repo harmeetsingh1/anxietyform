@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Card, CardGroup, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -299,8 +299,20 @@ function Forrm() {
     setIsSubmitted(true);
   };
 
+  useEffect(() => {
+    // Load answers from local storage on page load
+    const savedAnswers = JSON.parse(localStorage.getItem("answers"));
+    if (savedAnswers) {
+      setAnswers(savedAnswers);
+    }
+  }, []);
+
   const isQuestionAnswered = (questionIndex) => {
     return answeredQuestions.includes(questionIndex);
+  };
+
+  const saveAnswersToLocalStorage = (answers) => {
+    localStorage.setItem("answers", JSON.stringify(answers));
   };
 
   const handleButtonClick = () => {
@@ -333,7 +345,13 @@ function Forrm() {
       0
     );
 
+    const updatedAnswers = [...answers];
+  updatedAnswers[questionIndex] = optionValue;
+  setAnswers(updatedAnswers);
+  saveAnswersToLocalStorage(updatedAnswers);
+
     setTotalScore(updatedTotalScore);
+   
     //console.log(updatedTotalScore)
 
     //const updatedTotalScore1 = updatedTotalScore;

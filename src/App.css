@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 
+/* *{
+  box-sizing: border-box;
+  margin: 0;
+} */
+
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
 
 .nav1{
   background-color: blue;
@@ -62,6 +75,13 @@
   height: 100vh;
   /* margin-top: 50px; */
   padding: 40px;
+}
+
+h4{
+  font-family: 'Lora', serif;
+  color:rgb(155,43,120) !important;
+  font-size: medium;
+  
 }
 
 #cs{
@@ -174,6 +194,44 @@ input[type='radio'] {
 .button:hover,
 .button:active {
   color: rgb(255, 255, 255) !important;
-  background-color: rgb(155,43,120) !important;
+  background-color: #9b2b78 !important;
   border-color: rgb(255, 255, 255) !important;
 }
+
+#titles{
+  font-family: 'Lora', serif;
+  /* color:rgb(155,43,120) !important; */
+  font-size: medium;
+}
+
+#level{
+  font-family: 'Lora', serif;
+  /* color:rgb(155,43,120) !important; */
+  font-size: medium;
+}
+
+#details{
+  font-family: 'Lora', serif;
+  /* color:rgb(155,43,120) !important; */
+  font-size: medium;
+  
+}
+
+.tex{
+  font-family: 'Lora', serif;
+  /* color:rgb(155,43,120) !important; */
+  
+}
+
+.but{
+  border-radius: 18px !important;
+  background-color: #1fc6dd !important;
+  border-color: #1aaec2 !important;
+}
+
+
+
+
+
+
+

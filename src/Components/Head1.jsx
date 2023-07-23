@@ -3,7 +3,7 @@ import { Container, Navbar } from 'react-bootstrap'
 
 function Head1() {
   return (
-    <div>
+    <div className=''>
         <Navbar className='nav1'>
         <Container className='flex flex-row justify-content-center h-52 p-24'>
           <Navbar.Brand href="#home">
