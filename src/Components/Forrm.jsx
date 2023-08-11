@@ -265,6 +265,8 @@ function Forrm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+
   const [isValidEmail, setIsValidEmail] = useState(true);
 
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -315,8 +317,28 @@ function Forrm() {
     localStorage.setItem("answers", JSON.stringify(answers));
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     // window.location.href = `/result?score=${updatedTotalScore1}`;
+    try {
+      const postData = {
+        score: updatedTotalScore1,
+        name: name,
+        email: email,
+        mobile: phoneNumber,
+        // ... other necessary data
+      };
+      const response = await axios.post(
+        "http://api.positivemindcare.com/api/v1/user/",
+        postData
+      );
+
+      console.log("API response:", response.data);
+
+      // No need for navigate here
+    } catch (error) {
+      console.error("Error posting score to API:", error);
+    }
+    console.log("handleButtonClick called");
     console.log("isSubmitted:", isSubmitted);
     console.log("isValidEmail:", isValidEmail);
     console.log("isValidPhoneNumber:", isValidPhoneNumber);
@@ -346,12 +368,12 @@ function Forrm() {
     );
 
     const updatedAnswers = [...answers];
-  updatedAnswers[questionIndex] = optionValue;
-  setAnswers(updatedAnswers);
-  saveAnswersToLocalStorage(updatedAnswers);
+    updatedAnswers[questionIndex] = optionValue;
+    setAnswers(updatedAnswers);
+    saveAnswersToLocalStorage(updatedAnswers);
 
     setTotalScore(updatedTotalScore);
-   
+
     //console.log(updatedTotalScore)
 
     //const updatedTotalScore1 = updatedTotalScore;
@@ -365,6 +387,7 @@ function Forrm() {
       //   console.log(updatedTotalScore1)
 
       handleButtonClick();
+
       //setIsSubmitted(true);
       //handleButtonClick();
       //navigate(`/result?score=${updatedTotalScore1}`);
@@ -392,41 +415,117 @@ function Forrm() {
 
     const isAllQuestionsAnswered = answeredQuestions.length === cardData.length;
   };
-  const handleSubmit = (event) => {
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   setIsSubmitted(true);
+
+  //   const isValid = validator.isEmail(email);
+  //   setIsValidEmail(isValid);
+
+  //   if (isValid) {
+  //     // Proceed with form submission or further processing
+  //     console.log("Email address is valid:", email);
+  //   } else {
+  //     // Display an error message or handle the invalid email address case
+  //     console.log("Invalid email address:", email);
+  //   }
+
+  //   const isPhoneNumberValid = validator.isMobilePhone(phoneNumber);
+  //   setIsValidPhoneNumber(isPhoneNumberValid);
+
+  //   if (isAllQuestionsAnswered() && isValid && isPhoneNumberValid) {
+  //     // try {
+  //     //   const postData = {
+  //     //     score: updatedTotalScore1,
+  //     //     email: email,
+  //     //     phoneNumber: phoneNumber,
+  //     //     // ... other necessary data
+  //     //   };
+
+  //     //   const response = await axios.post(
+  //     //     'http://api.positivemindcare.com/api/v1/user/',
+  //     //     postData
+  //     //   );
+
+  //     //   console.log('API response:', response.data);
+
+  //     //    handleButtonClick();
+
+  //     //   navigate(`/result?score=${encodeURIComponent(updatedTotalScore1)}`);
+  //     // } catch (error) {
+  //     //   console.error('Error posting score to API:', error);
+  //     // }
+  //     event.preventDefault();
+  //     setIsSubmitted(true);
+  //     await handleButtonClick(); // Make sure the API call is completed
+  //     navigate(`/result?score=${encodeURIComponent(updatedTotalScore1)}`);
+  //   } else {
+  //     console.log("Please complete the form and answer all questions.");
+  //   }
+
+  //   if (
+  //     isSubmitted &&
+  //     isValidEmail &&
+  //     isValidPhoneNumber &&
+  //     updatedTotalScore1 !== null
+  //   ) {
+  //     handleButtonClick();
+  //   } else {
+  //     console.log("Please submit the form first");
+  //   }
+  // };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitted(true);
-    handleButtonClick();
-    const isValid = validator.isEmail(email);
-    setIsValidEmail(isValid);
 
-    if (isValid) {
-      // Proceed with form submission or further processing
-      console.log("Email address is valid:", email);
-    } else {
-      // Display an error message or handle the invalid email address case
+    const isValidEmail = validator.isEmail(email);
+    const isValidPhoneNumber = validator.isMobilePhone(phoneNumber);
+
+    if (!isValidEmail) {
       console.log("Invalid email address:", email);
     }
 
-    const isPhoneNumberValid = validator.isMobilePhone(phoneNumber);
-    setIsValidPhoneNumber(isPhoneNumberValid);
-
-    if (isPhoneNumberValid) {
-      // Proceed with form submission or further processing
-      console.log("Phone number is valid:", phoneNumber);
-    } else {
-      // Display an error message or handle the invalid phone number case
+    if (!isValidPhoneNumber) {
       console.log("Invalid phone number:", phoneNumber);
     }
 
-    if (
-      isSubmitted &&
-      isValidEmail &&
-      isValidPhoneNumber &&
-      updatedTotalScore1 !== null
-    ) {
-      handleButtonClick();
-    } else {
-      console.log("Please submit the form first");
+    if (isAllQuestionsAnswered() && isValidEmail && isValidPhoneNumber) {
+      try {
+        const postData = {
+          score: updatedTotalScore1,
+          name: name,
+          email: email,
+          mobile: phoneNumber,
+          // ... other necessary data
+        };
+
+        const response = await axios.post(
+          "http://api.positivemindcare.com/api/v1/user/",
+          postData
+        );
+
+        console.log("API response:", response.data);
+
+        navigate(`/result?score=${encodeURIComponent(updatedTotalScore1)}`);
+      } catch (error) {
+        console.error("Error posting score to API:", error);
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          console.log(
+            "Server responded with status code:",
+            error.response.status
+          );
+          console.log("Response data:", error.response.data);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log("No response received from server");
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error:", error.message);
+        }
+      }
     }
   };
 
@@ -487,9 +586,10 @@ function Forrm() {
                   }
                   onClick={() => {
                     handleAnswer(activeQuestion);
-                    handleButtonClick();
+                    // handleButtonClick();
                   }}
                   variant="outline-primary"
+                  type="submit"
                   style={{ fontSize: "18px", bordercolor: "rgb(155,43,120)" }}
                 >
                   Submit
@@ -502,8 +602,32 @@ function Forrm() {
                   <img
                     src="/Assets/ezgif.com-webp-to-png.png"
                     alt="no-im"
-                    className="h-28 p-1.5 m-4"
+                    className="h-24 p-1.5 m-4"
                   />
+                </div>
+
+                <div className="m-1">
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label className="fs-" id="name">
+                      Name
+                    </Form.Label>
+
+                    <Form.Control
+                      type="name"
+                      placeholder="Enter Name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      //isInvalid={!isValidEmail}
+                      size="sm"
+                      className="border"
+                    />
+
+                    {/* {!isValidEmail && (
+                      <Form.Control.Feedback type="invalid">
+                        Invalid email address.
+                      </Form.Control.Feedback>
+                    )} */}
+                  </Form.Group>
                 </div>
 
                 <div className="m-1">
@@ -529,6 +653,7 @@ function Forrm() {
                     )}
                   </Form.Group>
                 </div>
+
                 <div className="m-1">
                   <Form.Group className="mb-3" controlId="phone-number-input">
                     <Form.Label className="fs-6" id="name1">

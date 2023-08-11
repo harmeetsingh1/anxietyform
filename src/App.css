@@ -202,12 +202,14 @@ input[type='radio'] {
   font-family: 'Lora', serif;
   /* color:rgb(155,43,120) !important; */
   font-size: medium;
+  padding-left: 15px;
 }
 
 #level{
   font-family: 'Lora', serif;
   /* color:rgb(155,43,120) !important; */
   font-size: medium;
+  padding-left: 15px;
 }
 
 #details{
@@ -227,6 +229,12 @@ input[type='radio'] {
   border-radius: 18px !important;
   background-color: #1fc6dd !important;
   border-color: #1aaec2 !important;
+}
+
+.cong{
+  font-family: 'Lora', serif;
+
+
 }
 
 

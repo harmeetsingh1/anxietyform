@@ -51,50 +51,70 @@ function Resultpage() {
     }
   };
 
-  const normal = `- Having low levels of anxiety means you may experience a sense <br/>of  calm and peace in most situations. <br/><br>
-  - You may possess a remarkable ability to manage stress and handle<br/> challenges with composure.<br/><br>
-   - Your relaxed demeanor may allow you to approach life's <br/>uncertainties with confidence.
-  Keep this up with mindfulness techniques!
+  const normal = `- Your score on Anxiety Level Test suggests that your anxiety level is perfectly normal. <br/> <br>
+  - It means you experience a sense of calm and peace in most situations. <br/> <br>
+  - You may possess a remarkable ability to manage stress and handle challenges with composure.<br/> <br> 
+  - Your relaxed demeanor may allow you to approach life's uncertainties with confidence.
+  - Keep this up with mindfulness techniques! 
+  
   `;
-  const mild = `- Having mild anxiety means you may occasionally experience <br/>feelings of unease or worry in certain situations.<br/><br>
-  - While it might be challenging at times, you may possess coping <br/>mechanisms to manage these emotions and prevent them from overwhelming you.<br/><br> 
-  - Try improving your anxiety management with mindfulness <br/>techniques and counselling sessions.<br/><br> 
+  const mild = `- Your score on Anxiety Level Test suggests that you may have mild anxiety levels. <br/> <br>
+  - It means you may occasionally experience feelings of unease or worry in certain situations. <br/> <br>
+  - While it might be challenging at times, you may possess coping mechanisms to manage these emotions and prevent them from overwhelming you.<br/> <br> 
+  - Try improving your anxiety management with mindfulness techniques and/or counselling sessions. <br/> <br>
   - Remember that you are not alone in this journey!
+  
   `;
 
-  const moderate = `- Having moderate anxiety means you may often find yourself<br/> overwhelmed by  intense feelings of fear and worry, making it  <br/> challenging to cope with daily life.<br/><br>
-  - Your mind may be consumed by irrational thoughts and excessive <br/>concerns, leading to physical symptoms like rapid heartbeat and difficulty breathing.<br/><br> 
-  - Try improving your anxiety management with   counselling  <br/> sessions and professional help .<br/><br>
+  const moderate = `- Your score on Anxiety Level Test suggests that you may have severe anxiety levels.<br/> <br> 
+  - It means you may often find yourself overwhelmed by intense feelings of fear and worry, making it challenging to cope with daily life.<br/> <br>
+  - Your mind may be consumed by irrational thoughts and excessive concerns, leading to physical symptoms like rapid heartbeat and difficulty breathing. <br/> <br>
+  - Try improving your anxiety management with counselling sessions and professional help.<br/> <br>
   - Remember that you are not alone in this journey!
+  
   `;
-  const severe = `- Having severe anxiety means you may experience persistent  <br/> feelings  of  fear and worry that significantly impact your daily functioning.<br/><br>
-  - Your mind may be preoccupied with distressing thoughts,<br/>  making it challenging to focus on tasks and maintain emotional stability.<br/><br>
-  - The physical symptoms, like panic attacks and gastrointestinal <br/> issues may add to the burden of your condition.<br/><br> 
-  - Try improving your anxiety management with professional  <br/> help and clinical treatment. Remember that you are not alone in this journey!
+  const severe = `- Your score on Anxiety Level Test suggests that you may have severe anxiety levels. <br/> <br>
+  - It means you may often find yourself overwhelmed by intense feelings of fear and worry, making it challenging to cope with daily life.<br/><br> 
+  - Your mind may be consumed by irrational thoughts and excessive concerns, leading to physical symptoms like rapid heartbeat and difficulty breathing.<br/> <br>
+  - Try improving your anxiety management with counselling sessions and professional help. 
+  - Remember that you are not alone in this journey!
+  
   `;
   const getAnxietyLevelText = () => {
     if (updatedTotalScore >= 0 && updatedTotalScore < 20) {
       return (
         <div>
-          <p dangerouslySetInnerHTML={{ __html: normal }}></p>
+          <p
+            className="md:max-w-md"
+            dangerouslySetInnerHTML={{ __html: normal }}
+          ></p>
         </div>
       );
     } else if (updatedTotalScore >= 20 && updatedTotalScore < 40) {
       return (
         <div>
-          <p dangerouslySetInnerHTML={{ __html: mild }}></p>
+          <p
+            className="md:max-w-md"
+            dangerouslySetInnerHTML={{ __html: mild }}
+          ></p>
         </div>
       );
     } else if (updatedTotalScore >= 40 && updatedTotalScore < 60) {
       return (
         <div>
-          <p dangerouslySetInnerHTML={{ __html: moderate }}></p>
+          <p
+            className="md:max-w-md"
+            dangerouslySetInnerHTML={{ __html: moderate }}
+          ></p>
         </div>
       );
     } else if (updatedTotalScore >= 60 && updatedTotalScore <= 80) {
       return (
         <div>
-          <p dangerouslySetInnerHTML={{ __html: severe }}></p>
+          <p
+            className="md:max-w-md"
+            dangerouslySetInnerHTML={{ __html: severe }}
+          ></p>
         </div>
       );
     } else {
@@ -105,9 +125,9 @@ function Resultpage() {
   const anxietyLevel = getAnxietyLevel();
   const anxietyLevelText = getAnxietyLevelText();
   return (
-    <div className="flex  bg-[#e0ffff]">
+    <div className="flex  bg-[#e0ffff] ">
       <article class="container flex flex-col md:flex-row bg-[#e0ffff] mb-10 ">
-        <Card className="flex flex-grow-1 md:mr-4  md:mb-0 shadow-2xl shadow-teal-500 ">
+        <Card className="flex flex-grow-1 md:mr-4  md:mb-0 shadow-2xl shadow-teal-500 mb-3 ">
           <Card.Body>
             <h4 className="flex justify-center m-4 pt-2">
               ANXIETY LEVEL TEST RESULT
@@ -147,6 +167,12 @@ function Resultpage() {
                 className="flex justify-center "
               />
             </div>
+            <div className="italic text-[#2755a3] cong">
+              <p className="x fw-bold md:max-w-md p-3 m-3 text-md">
+                Congratulations on completing the Anxiety Level Test!! It was
+                really Quick and Interesting !!!
+              </p>
+            </div>
             <div className="relative flex flex-col items-baseline ">
               <ResultInfo
                 className="titles"
@@ -158,7 +184,7 @@ function Resultpage() {
                 Your Anxiety Level Is {anxietyLevel}
               </p>
 
-              <p className="flex" id="details">
+              <p className="flex p-3 m-3" id="details">
                 {anxietyLevelText}
               </p>
 
@@ -182,7 +208,7 @@ function Resultpage() {
           </Card.Body>
         </Card>
 
-        <Card className="conatiner flex flex-grow-1 items-center shadow-2xl shadow-teal-500 ">
+        <Card className="conatiner flex flex-grow-1 items-center shadow-2xl shadow-teal-500 mb-3">
           <Card.Body className="m-4 p-4">
             <div className="flex justify-center container">
               <h4 className="">OUR PACKAGES</h4>
